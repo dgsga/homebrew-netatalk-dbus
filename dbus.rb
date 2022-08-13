@@ -70,7 +70,7 @@ class Dbus < Formula
             <string>--nofork</string>
             <string>--system</string>
           </array>
-          <key>KeepAlive</key>
+          <key>RunAtLoad</key>
           <true/>
         </dict>
       </plist>
