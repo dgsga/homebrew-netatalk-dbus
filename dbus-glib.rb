@@ -10,7 +10,7 @@ class DbusGlib < Formula
   end
 
   depends_on "pkg-config" => :build
-  depends_on "dgsga/dbus/dbus"
+  depends_on "dgsga/netatalk-dbus/dbus"
   depends_on "gettext"
   depends_on "glib"
 
