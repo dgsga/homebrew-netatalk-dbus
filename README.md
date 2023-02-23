@@ -9,4 +9,4 @@ This is a patched version of the Homebrew dbus formula that installs a system-wi
 
 2. Install modified version of dbus:
 
-    brew install dgsga/dbus/dbus
+    brew install dgsga/netatalk-dbus/dbus-glib
