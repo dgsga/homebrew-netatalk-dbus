@@ -2,8 +2,8 @@ class Dbus < Formula
   # releases: even (1.12.x) = stable, odd (1.13.x) = development
   desc "Message bus system, providing inter-application communication"
   homepage "https://wiki.freedesktop.org/www/Software/dbus"
-  url "https://dbus.freedesktop.org/releases/dbus/dbus-1.15.2.tar.xz"
-  sha256 "7e640803084af59f5e477b7ded11fd888b5380910a895c51ca3aedd63c0626ca"
+  url "https://dbus.freedesktop.org/releases/dbus/dbus-1.15.4.tar.xz"
+  sha256 "bfe53d9e54a4977ec344928521b031af2e97cf78aea58f5d8e2b85ea0a80028b"
   license any_of: ["AFL-2.1", "GPL-2.0-or-later"]
 
   livecheck do
