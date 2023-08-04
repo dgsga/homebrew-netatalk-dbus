@@ -1,0 +1,13 @@
+diff --git a/dbus/dbus-binding-tool-glib.c b/dbus/dbus-binding-tool-glib.c
+index 8734515..3df2ab2 100644
+--- a/dbus/dbus-binding-tool-glib.c
++++ b/dbus/dbus-binding-tool-glib.c
+@@ -883,7 +883,7 @@ dbus_binding_tool_output_glib_server (BaseInfo *info, GIOChannel *channel, const
+   /* Now spawn glib-genmarshal to insert all our required marshallers */
+   argv = g_ptr_array_new ();
+   g_ptr_array_add (argv, "glib-genmarshal");
+-  g_ptr_array_add (argv, "--header");
++  g_ptr_array_add (argv, "--prototypes");
+   g_ptr_array_add (argv, "--body");
+   g_ptr_array_add (argv, "--skip-source");
+   g_ptr_array_add (argv, g_strdup_printf ("--prefix=%s%s", MARSHAL_PREFIX, prefix));

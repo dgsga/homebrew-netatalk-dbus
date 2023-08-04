@@ -13,6 +13,12 @@ class DbusGlib < Formula
   depends_on "dgsga/netatalk-dbus/dbus"
   depends_on "gettext"
   depends_on "glib"
+  
+  # Patch dbus-binding-tool to fix deprecation warning on macOS
+  patch do
+    url "https://raw.githubusercontent.com/dgsga/homebrew-netatalk-dbus/main/binding-tool.patch"
+    sha256 "96a21fd9018ef39d4cf5fef3117d543dc01cc6d586b302159dfa0f0cede6f2fd"
+  end
 
   def install
     system "./configure", "--disable-dependency-tracking",
