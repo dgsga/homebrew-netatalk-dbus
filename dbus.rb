@@ -11,37 +11,35 @@ class Dbus < Formula
     regex(/href=.*?dbus[._-]v?(\d+\.\d*?[02468](?:\.\d+)*)\.t/i)
   end
 
-  depends_on "autoconf" => :build
-  depends_on "autoconf-archive" => :build
-  depends_on "automake" => :build
-  depends_on "libtool" => :build
+  head do
+    url "https://gitlab.freedesktop.org/dbus/dbus.git"  
+  end
+  
+  depends_on "docbook" => :build
+  depends_on "docbook-xsl" => :build
+  depends_on "meson" => :build
+  depends_on "ninja" => :build
   depends_on "pkg-config" => :build
   depends_on "xmlto" => :build
 
   uses_from_macos "expat"
 
   def install
-    # Fix the TMPDIR to one D-Bus doesn't reject due to odd symbols
-    ENV["TMPDIR"] = "/tmp"
-    ENV["XML_CATALOG_FILES"] = "#{etc}/xml/catalog"
-
-    args = [
-      "--disable-dependency-tracking",
-      "--prefix=#{prefix}",
-      "--localstatedir=#{var}",
-      "--sysconfdir=#{etc}",
-      "--enable-xml-docs",
-      "--disable-doxygen-docs",
-      "--without-x",
-      "--disable-tests",
-      "--disable-launchd",
-      "--with-dbus-user=root",
-      "--with-system-pid-file=/var/run/dbus.pid",
+    args = %w[
+      -Ddbus_user=root
+      -Dlaunchd=disabled
+      -Dsystem_pid_file=/var/run/dbus.pid
     ]
     
-    system "./autogen.sh"
-    system "./configure", *args
-    system "make", "install"
+    # Fix the TMPDIR to one D-Bus doesn't reject due to odd symbols
+    ENV["TMPDIR"] = "/tmp"
+    
+    # Find our docbook catalog
+    ENV["XML_CATALOG_FILES"] = "#{etc}/xml/catalog"
+
+    system "meson", "setup", "build", *args, *std_meson_args, "--localstatedir=#{var}", "--sysconfdir=#{etc}"
+    system "meson", "compile", "-C", "build", "--verbose"
+    system "meson", "install", "-C", "build"
     system "rm", "-f", "#{etc}/dbus-1/session.conf"
     system "rm", "-f", "#{etc}/dbus-1/system.conf"
     system "mkdir", "-p", "#{etc}/dbus-1/system.d"
